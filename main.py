@@ -24,18 +24,19 @@ def createM3U(path):
 	print("create %s" % m3u_filename)
 	entries = []
 	for fn in os.listdir(path):
-		if os.path.isfile(path + "/" + fn):
+		fullfn = os.path.join(path, fn)
+		if os.path.isfile(fullfn):
 			if os.path.splitext(fn)[1][1:].lower() in AudioFileExts:
 				entries += [fn]
-		elif os.path.isdir(path + "/" + fn):
-			if createM3U(path + "/" + fn):
-				entries += [m3uFilenameFromDir(path + "/" + fn)]
+		elif os.path.isdir(fullfn):
+			if createM3U(fullfn):
+				entries += [m3uFilenameFromDir(fullfn)]
 	if not entries:
 		return False
 	sort_nicely(entries)
 	f = open(m3u_filename, "w")
 	for fn in entries:
-		f.write("%s\n" % fn)
+		f.write("%s\n" % (os.path.join(os.path.basename(path), fn)))
 	return True
 
 def main(*args):
