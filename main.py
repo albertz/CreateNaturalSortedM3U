@@ -1,3 +1,4 @@
+#!env python
 # created by Albert Zeyer, 2013
 # code under 2-clause simplified BSD license
 
